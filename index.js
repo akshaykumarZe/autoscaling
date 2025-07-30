@@ -1,16 +1,12 @@
 // index.js
-const data = [];
-console.log("Starting CPU and RAM consumption...");
+const memoryHog = [];
+console.log("Starting aggressive CPU and RAM consumption...");
 
 setInterval(() => {
-  // Allocate memory
-  const str = "x".repeat(10 ** 6); // ~1MB string
-  data.push(str);
-
-  // Burn CPU
-  for (let i = 0; i < 1e8; i++) {
-    Math.sqrt(i);
+  const fiveMB = 'x'.repeat(5 * 1024 * 1024); // ~5MB
+  memoryHog.push(fiveMB); // Store permanently
+  for (let i = 0; i < 5e7; i++) {
+    Math.sqrt(i); // Burn CPU
   }
-
-  console.log(`Memory blocks: ${data.length} (~${data.length} MB)`);
+  console.log(`Allocated memory: ${memoryHog.length * 5} MB`);
 }, 1000);
