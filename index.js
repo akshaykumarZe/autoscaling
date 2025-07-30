@@ -1,21 +1,16 @@
+// index.js
+const data = [];
+console.log("Starting CPU and RAM consumption...");
 
-// Simulate memory load
-const memoryHog = [];
 setInterval(() => {
-  const buffer = Buffer.alloc(50 * 1024 * 1024); // Allocate 50MB
-  memoryHog.push(buffer);
-  console.log(`Allocated 50MB. Total allocations: ${memoryHog.length * 50}MB`);
-}, 5000); // Allocate every 5 seconds
+  // Allocate memory
+  const str = "x".repeat(10 ** 6); // ~1MB string
+  data.push(str);
 
-// Simulate CPU load
-function cpuHog() {
-  const start = Date.now();
-  while (Date.now() - start < 500) {
-    // Busy loop for 500ms every second
-    Math.sqrt(Math.random() * Math.random());
+  // Burn CPU
+  for (let i = 0; i < 1e8; i++) {
+    Math.sqrt(i);
   }
-  setTimeout(cpuHog, 500);
-}
-cpuHog();
 
-console.log("CPU and memory load simulation started.");
+  console.log(`Memory blocks: ${data.length} (~${data.length} MB)`);
+}, 1000);
