@@ -1,16 +1,11 @@
-# Use a lightweight base image
-FROM alpine:3.20
+# Use Node.js LTS base image
+FROM node:18
 
-# Step 1: Print some build logs
-RUN echo "===== Starting Docker build =====" && \
-    echo "Step 1: Updating package index" && \
-    apk update && \
-    echo "Step 2: Installing curl" && \
-    apk add --no-cache curl && \
-    echo "Step 3: Checking curl version" && \
-    curl --version && \
-    echo "===== Build is about to fail ====="
+# Set the working directory
+WORKDIR /app
 
-# Step 2: Force a failure
-RUN echo "Forcing a failure now..." && exit 1
+# Copy application file
+COPY index.js .
 
+# Run the app with Node
+CMD ["node", "index.js"]
